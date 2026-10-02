@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>映搭｜穿搭灵感试穿原型</title>
+  <meta name="description" content="先把喜欢的穿搭放到自己身上，再找到能实现这种效果的相似商品。" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23111111'/%3E%3Cpath d='M21 18c2-5 6-8 11-8s9 3 11 8l8 6-7 11-5-4v23H25V31l-5 4-7-11 8-6Z' fill='%2356E39F'/%3E%3C/svg%3E" />
+  <style>
+    :root{--ink:#151515;--paper:#f7f5ef;--card:#fff;--line:#ddd9cf;--lime:#b8ff4a;--blue:#3759f0;--muted:#716e67;--soft:#ece9e0}
+    *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;font-size:16px}
+    button,input{font:inherit} button{cursor:pointer}.app{min-height:100vh}.topbar{height:68px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:sticky;top:0;background:rgba(247,245,239,.94);backdrop-filter:blur(12px);z-index:20}.brand{display:flex;align-items:center;gap:10px;font-weight:760;letter-spacing:-.02em}.mark{width:34px;height:34px;border-radius:11px;background:var(--ink);display:grid;place-items:center;color:var(--lime)}.prototype{font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:7px 10px;background:#fff}
+    .shell{max-width:1180px;margin:0 auto;padding:28px 20px 48px;display:grid;grid-template-columns:250px minmax(0,1fr);gap:28px}.side{position:sticky;top:96px;height:max-content}.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}.side h1{font-size:31px;line-height:1.15;letter-spacing:-.055em;margin:12px 0}.side p{font-size:15px;line-height:1.7;color:var(--muted)}.steps{margin-top:28px;display:grid;gap:8px}.step{display:flex;align-items:center;gap:10px;padding:12px;border-radius:14px;color:#8a877f;font-size:14px}.step .num{width:26px;height:26px;border-radius:9px;background:var(--soft);display:grid;place-items:center;font-size:12px}.step.active{background:var(--ink);color:#fff}.step.active .num{background:var(--lime);color:var(--ink)}.step.done{color:var(--ink)}.step.done .num{background:#d9f7e7;color:#167249}
+    .surface{min-height:720px;background:var(--card);border:1px solid var(--line);border-radius:30px;box-shadow:0 24px 70px rgba(28,27,24,.08);overflow:hidden}.screen{display:none;min-height:720px}.screen.active{display:block}.screen-head{padding:28px 30px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:16px}.screen-head h2{margin:4px 0 0;font-size:25px;letter-spacing:-.04em}.screen-head p{margin:7px 0 0;color:var(--muted);font-size:14px}.screen-body{padding:24px 30px 30px}
+    .upload-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:20px}.drop{position:relative;min-height:520px;border-radius:24px;border:1.5px dashed #c9c4b9;overflow:hidden;background:#f1eee7;display:flex;align-items:center;justify-content:center}.drop.drag{border-color:var(--blue);background:#eef1ff}.drop img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.empty{text-align:center;padding:34px;max-width:320px}.upload-icon{width:60px;height:60px;border-radius:20px;background:var(--ink);color:#fff;margin:0 auto 18px;display:grid;place-items:center;font-size:24px}.empty h3{font-size:21px;margin:0 0 8px}.empty p{font-size:14px;color:var(--muted);line-height:1.6}.actions{display:grid;gap:10px;margin-top:22px}.btn{border:0;border-radius:999px;padding:14px 18px;font-weight:690;min-height:48px}.btn-dark{background:var(--ink);color:#fff}.btn-light{background:#fff;border:1px solid var(--line);color:var(--ink)}.btn-lime{background:var(--lime);color:var(--ink)}.btn-blue{background:var(--blue);color:#fff}.btn:disabled{opacity:.35;cursor:not-allowed}.source-tag{position:absolute;left:14px;top:14px;background:rgba(17,17,17,.74);color:#fff;border-radius:999px;padding:7px 10px;font-size:12px;backdrop-filter:blur(10px)}.change{position:absolute;right:14px;top:14px;background:rgba(255,255,255,.92);border:0;border-radius:999px;padding:8px 11px;font-size:12px}
+    .info-panel{display:flex;flex-direction:column;gap:14px}.info-card{padding:20px;border-radius:20px;background:var(--paper);border:1px solid var(--line)}.info-card strong{display:block;margin-bottom:8px}.info-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.6}.info-card.green{background:#eaf9ef;border-color:#ccebd7}.privacy{margin-top:auto;padding:16px 4px;color:var(--muted);font-size:13px;line-height:1.6}
+    .modes{display:grid;grid-template-columns:1fr 1fr;gap:16px}.mode{border:1.5px solid var(--line);border-radius:22px;padding:22px;text-align:left;background:#fff;transition:.2s}.mode:hover,.mode.selected{border-color:var(--ink);box-shadow:0 0 0 3px rgba(21,21,21,.06)}.mode-badge{display:inline-flex;border-radius:999px;padding:6px 9px;background:var(--soft);font-size:12px}.mode h3{font-size:20px;margin:18px 0 8px}.mode p{color:var(--muted);font-size:14px;line-height:1.65;min-height:68px}.mode ul{padding:0;margin:16px 0 0;list-style:none;display:grid;gap:9px;font-size:14px}.mode li:before{content:"✓";margin-right:8px;color:#168457}.mode.selected .mode-badge{background:var(--lime)}.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px}.field input,.field select{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.footer-action{margin-top:24px;display:flex;justify-content:flex-end;gap:10px}
+    .preview-layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:18px}.preview-stage{min-height:520px;border-radius:24px;background:#161616;position:relative;overflow:hidden;color:#fff;display:flex;align-items:center;justify-content:center}.preview-stage img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;filter:saturate(.86)}.preview-stage:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 58%,rgba(0,0,0,.72))}.preview-copy{position:absolute;z-index:2;left:20px;right:20px;bottom:20px}.preview-copy span{font-size:12px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.2);padding:6px 9px;border-radius:999px}.preview-copy h3{margin:12px 0 3px;font-size:22px}.preview-copy p{margin:0;color:rgba(255,255,255,.7);font-size:13px}.adjust{display:flex;flex-direction:column;gap:12px}.adjust-card{border:1px solid var(--line);border-radius:20px;padding:18px}.adjust-card h3{margin:0 0 12px;font-size:16px}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 11px;font-size:13px}.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}.rating{display:grid;grid-template-columns:1fr 1fr;gap:8px}.rating button{border:1px solid var(--line);border-radius:13px;background:#fff;padding:11px;font-size:13px}.loading-ring{width:54px;height:54px;border:4px solid rgba(255,255,255,.15);border-top-color:var(--lime);border-radius:50%;animation:spin 1s linear infinite;position:relative;z-index:2}.loading-text{position:absolute;z-index:2;margin-top:92px;text-align:center}.loading-text strong{display:block}.loading-text span{font-size:13px;color:rgba(255,255,255,.55)}@keyframes spin{to{transform:rotate(360deg)}}
+    .results-summary{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:18px}.results-summary h3{font-size:22px;margin:0}.results-summary p{margin:6px 0 0;color:var(--muted);font-size:14px}.outfit-tabs{display:flex;gap:8px}.outfit-tabs button{border:1px solid var(--line);border-radius:999px;padding:9px 12px;background:#fff}.outfit-tabs button.on{background:var(--ink);color:#fff}.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.product{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#fff}.product-visual{height:220px;background:linear-gradient(135deg,#e7e3db,#f7f6f2);position:relative;display:grid;place-items:center}.garment-shape{width:92px;height:124px;border-radius:24px 24px 14px 14px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08)}.garment-shape.top{background:#c9d9c1}.garment-shape.bottom{width:102px;height:138px;background:#3f4147;clip-path:polygon(12% 0,88% 0,100% 100%,52% 100%,50% 24%,48% 100%,0 100%)}.garment-shape.shoe{width:138px;height:58px;border-radius:50% 10% 22% 18%;background:#ece9df;transform:rotate(-8deg)}.match{position:absolute;left:12px;top:12px;background:#fff;border-radius:999px;padding:6px 8px;font-size:12px}.product-info{padding:15px}.product-info strong{font-size:15px}.product-info p{font-size:13px;color:var(--muted);margin:6px 0}.price{display:flex;justify-content:space-between;align-items:center;margin-top:12px}.price b{font-size:18px}.price span{font-size:12px;color:#168457}.bundle{margin-top:18px;border-radius:22px;background:var(--ink);color:#fff;padding:18px;display:flex;justify-content:space-between;align-items:center;gap:18px}.bundle p{margin:4px 0 0;color:rgba(255,255,255,.55);font-size:13px}.bundle .btn{white-space:nowrap}
+    .credit{font-size:11px;color:var(--muted);margin-top:10px}.credit a{color:inherit}.hidden{display:none!important}
+    @media(max-width:850px){.shell{grid-template-columns:1fr;padding:0}.side{position:static;padding:20px 18px 2px}.side h1{font-size:27px}.side>p{display:none}.steps{display:flex;overflow:auto;margin-top:16px}.step{flex:0 0 auto;padding:8px}.step span:last-child{display:none}.surface{border-radius:26px 26px 0 0;min-height:calc(100vh - 168px);border-left:0;border-right:0;border-bottom:0}.screen{min-height:auto}.screen-head{padding:22px 20px 18px}.screen-body{padding:18px 16px 30px}.upload-grid,.preview-layout{grid-template-columns:1fr}.drop{min-height:430px}.info-panel{display:grid;grid-template-columns:1fr 1fr}.privacy{grid-column:1/-1}.product-grid{grid-template-columns:1fr;}.product{display:grid;grid-template-columns:130px 1fr}.product-visual{height:160px}.bundle{align-items:flex-start;flex-direction:column}.bundle .btn{width:100%}}
+    @media(max-width:520px){.topbar{height:60px;padding:0 14px}.prototype{font-size:12px}.shell{gap:12px}.side{padding:16px 16px 0}.side h1{font-size:24px;margin:7px 0}.steps{margin-top:10px}.screen-head h2{font-size:22px}.upload-grid{gap:12px}.drop{min-height:410px}.info-panel{grid-template-columns:1fr}.modes{grid-template-columns:1fr}.mode p{min-height:0}.form-row{grid-template-columns:1fr}.preview-stage{min-height:480px}.results-summary{align-items:flex-start;flex-direction:column}.outfit-tabs{overflow:auto;width:100%}}
+    /* Mobile prototype: keep the same phone canvas even when opened on desktop. */
+    body{background:#d9d6cf}.app{width:100%;max-width:430px;margin:0 auto;background:var(--paper);box-shadow:0 0 80px rgba(20,20,18,.16)}
+    .topbar{height:60px;padding:0 14px}.prototype{font-size:12px}.shell{display:block;max-width:430px;padding:0;gap:12px}.side{position:static;padding:16px 16px 0}.side h1{font-size:24px;margin:7px 0}.side>p{display:none}.steps{display:flex;overflow:auto;margin-top:10px}.step{flex:1 0 auto;justify-content:center;padding:8px}.step span:last-child{display:none}.surface{border-radius:26px 26px 0 0;min-height:calc(100vh - 168px);border-left:0;border-right:0;border-bottom:0;box-shadow:none}.screen{min-height:auto}.screen-head{padding:22px 20px 18px}.screen-head h2{font-size:22px}.screen-body{padding:18px 16px calc(30px + env(safe-area-inset-bottom))}.upload-grid,.preview-layout{grid-template-columns:1fr;gap:12px}.drop{min-height:410px}.info-panel{display:grid;grid-template-columns:1fr}.privacy{grid-column:1/-1}.modes{grid-template-columns:1fr}.mode p{min-height:0}.form-row{grid-template-columns:1fr}.preview-stage{min-height:480px}.product-grid{grid-template-columns:1fr}.product{display:grid;grid-template-columns:130px 1fr}.product-visual{height:160px}.bundle{align-items:flex-start;flex-direction:column}.bundle .btn{width:100%}.results-summary{align-items:flex-start;flex-direction:column}.outfit-tabs{overflow:auto;width:100%}
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar"><div class="brand"><span class="mark">✦</span><span>映搭</span></div><span class="prototype">手机交互原型</span></header>
+  <main class="shell">
+    <aside class="side">
+      <div class="eyebrow">穿搭灵感 → 真实商品</div>
+      <h1>先看看穿在你身上的感觉</h1>
+      <p>喜欢这个效果之后，再找能实现它的相似商品。</p>
+      <nav class="steps" aria-label="体验步骤">
+        <div class="step active" data-step="1"><span class="num">1</span><span>导入穿搭</span></div>
+        <div class="step" data-step="2"><span class="num">2</span><span>选择预览</span></div>
+        <div class="step" data-step="3"><span class="num">3</span><span>调整效果</span></div>
+        <div class="step" data-step="4"><span class="num">4</span><span>搜索相似款</span></div>
+      </nav>
+    </aside>
+
+    <section class="surface">
+      <article class="screen active" id="screen1">
+        <div class="screen-head"><div><div class="eyebrow">步骤 1 / 4</div><h2>导入你喜欢的整套穿搭</h2><p>支持社媒截图，图片仅用于本次原型体验。</p></div></div>
+        <div class="screen-body upload-grid">
+          <div class="drop" id="drop">
+            <div class="empty" id="empty"><div class="upload-icon">＋</div><h3>上传穿搭截图</h3><p>尽量选择单人、全身、服装无遮挡的图片。</p><div class="actions"><button class="btn btn-dark" id="pick">从相册选择</button><button class="btn btn-light" id="sample">使用示例穿搭</button></div></div>
+            <img id="sourceImage" class="hidden" alt="导入的穿搭图" />
+            <span class="source-tag hidden" id="sourceTag">已识别：上衣 · 下装 · 鞋</span>
+            <button class="change hidden" id="change">更换图片</button>
+            <input id="file" type="file" accept="image/*" hidden />
+          </div>
+          <div class="info-panel">
+            <div class="info-card green"><strong>先试效果，再找商品</strong><p>这一阶段只判断穿搭风格和比例是否适合你，不急着挑选具体商品。</p></div>
+            <div class="info-card"><strong>图片建议</strong><p>单人全身、自然站立、光线清晰。多人或遮挡会降低服装识别效果。</p></div>
+            <div class="privacy">原型不会上传或保存你选择的本地图片。真实版本需要独立的人像授权与删除机制。示例穿搭图仅用于流程演示，来源：<a href="https://www.chelseavolpe.com/magic-nyc/" target="_blank" rel="noreferrer">Chelsea Volpe / MAGIC NY</a>。</div>
+            <button class="btn btn-blue" id="toMode" disabled>继续选择预览方式</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="screen" id="screen2">
+        <div class="screen-head"><div><div class="eyebrow">步骤 2 / 4</div><h2>选择你愿意提供的信息</h2><p>信息越多，结果可能更接近本人，但不会用于判断真实尺码。</p></div></div>
+        <div class="screen-body">
+          <div class="modes">
+            <button class="mode selected" data-mode="quick"><span class="mode-badge">低门槛</span><h3>快速预览</h3><p>使用与你身高、体重相近的数字模特，先看整体轮廓和搭配比例。</p><ul><li>无需上传真人照片</li><li>约 10 秒看到结果</li><li>仅作大致效果参考</li></ul></button>
+            <button class="mode" data-mode="enhanced"><span class="mode-badge">更像本人</span><h3>增强预览</h3><p>自愿上传全身照和必要身体信息，生成更接近本人的视觉效果。</p><ul><li>需要单独人像授权</li><li>可随时删除数字分身</li><li>仍不代表真实合身度</li></ul></button>
+          </div>
+          <div class="form-row" id="quickFields"><div class="field"><label for="height">身高（cm）</label><input id="height" type="number" value="165" min="140" max="210" /></div><div class="field"><label for="weight">体重（kg）</label><input id="weight" type="number" value="55" min="35" max="180" /></div></div>
+          <div class="info-card hidden" id="enhancedFields" style="margin-top:18px"><strong>增强预览需要额外授权</strong><p>真实产品会在这里说明照片用途、保存期限和删除方式，再由用户主动上传本人全身照。原型不会收集这些数据。</p></div>
+          <div class="footer-action"><button class="btn btn-light back" data-back="1">返回</button><button class="btn btn-blue" id="generate">生成我的效果</button></div>
+        </div>
+      </article>
+
+      <article class="screen" id="screen3">
+        <div class="screen-head"><div><div class="eyebrow">步骤 3 / 4</div><h2>这套感觉适合你吗？</h2><p>先调整到满意，再根据确认后的效果搜索商品。</p></div></div>
+        <div class="screen-body preview-layout">
+          <div class="preview-stage" id="previewStage"><div class="loading-ring"></div><div class="loading-text"><strong>正在生成体型预览</strong><span>分析轮廓、颜色与穿搭比例…</span></div><img id="previewImage" class="hidden" alt="穿搭效果预览" /><div class="preview-copy hidden" id="previewCopy"><span id="previewBadge">快速预览 · 视觉示意</span><h3>通勤休闲 · 清爽比例</h3><p>原型以参考图代替真实生成结果，重点验证交互顺序。</p></div></div>
+          <div class="adjust">
+            <div class="adjust-card"><h3>想调整哪里？</h3><div class="chips"><button class="chip">上衣长一点</button><button class="chip">裤腰更高</button><button class="chip">换成深色</button><button class="chip">更通勤</button><button class="chip">更显利落</button></div></div>
+            <div class="adjust-card"><h3>这个效果对你有帮助吗？</h3><div class="rating"><button>有帮助</button><button>不太像我</button></div></div>
+            <button class="btn btn-light" id="regenerate">重新生成效果</button>
+            <button class="btn btn-lime" id="search" disabled>满意了，找相似商品</button>
+            <button class="btn btn-light back" data-back="2">返回修改信息</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="screen" id="screen4">
+        <div class="screen-head"><div><div class="eyebrow">步骤 4 / 4</div><h2>找到能实现这个效果的商品</h2><p>默认按整套还原度排序，而不是只看单件是否相似。</p></div></div>
+        <div class="screen-body">
+          <div class="results-summary"><div><h3>整套还原度 89%</h3><p>轮廓、配色和单品比例与确认效果接近。</p></div><div class="outfit-tabs"><button class="on">最像效果</button><button>预算更低</button></div></div>
+          <div class="product-grid">
+            <article class="product"><div class="product-visual"><span class="match">相似度 92%</span><div class="garment-shape top"></div></div><div class="product-info"><strong>浅绿短款针织上衣</strong><p>方领 · 微修身 · 七分袖</p><div class="price"><b>¥129</b><span>颜色最接近</span></div></div></article>
+            <article class="product"><div class="product-visual"><span class="match">相似度 88%</span><div class="garment-shape bottom"></div></div><div class="product-info"><strong>深灰高腰微喇长裤</strong><p>高腰 · 垂顺 · 修饰腿型</p><div class="price"><b>¥189</b><span>比例最接近</span></div></div></article>
+            <article class="product"><div class="product-visual"><span class="match">相似度 84%</span><div class="garment-shape shoe"></div></div><div class="product-info"><strong>米白厚底休闲鞋</strong><p>圆头 · 厚底 · 日常通勤</p><div class="price"><b>¥159</b><span>风格协调</span></div></div></article>
+          </div>
+          <div class="bundle"><div><strong>整套参考价 ¥477</strong><p>界面原型使用模拟商品，未接入真实淘宝库存与交易。</p></div><button class="btn btn-lime" id="finish">模拟查看整套</button></div>
+          <div class="footer-action"><button class="btn btn-light back" data-back="3">返回调整效果</button></div>
+        </div>
+      </article>
+    </section>
+  </main>
+</div>
+<script>
+  const sampleUrl='https://images.squarespace-cdn.com/content/v1/56395eb5e4b08dfc7812946c/1664928971722-GNWYMMQJ7JJDGIW7QPKP/1967_Magic%2BEditorial_2021-09-20_commercial_New%2BYork_CA_USA_HAILLEYHOWARD_.jpg?format=1500w';
+  let currentImage=''; let mode='quick';
+  const $=s=>document.querySelector(s); const $$=s=>document.querySelectorAll(s);
+  function go(n){ $$('.screen').forEach(x=>x.classList.remove('active')); $('#screen'+n).classList.add('active'); $$('.step').forEach((x,i)=>{x.classList.toggle('active',i===n-1);x.classList.toggle('done',i<n-1)}); window.scrollTo({top:0,behavior:'smooth'}); }
+  function setImage(src,label){currentImage=src;$('#sourceImage').src=src;$('#sourceImage').classList.remove('hidden');$('#empty').classList.add('hidden');$('#sourceTag').classList.remove('hidden');$('#change').classList.remove('hidden');$('#toMode').disabled=false;$('#sourceTag').textContent=label||'已识别：上衣 · 下装 · 鞋';}
+  $('#pick').onclick=()=>$('#file').click(); $('#change').onclick=()=>$('#file').click();
+  $('#file').onchange=e=>{const f=e.target.files[0];if(f)setImage(URL.createObjectURL(f),'本地图片 · 原型不上传');};
+  $('#sample').onclick=()=>setImage(sampleUrl,'示例图 · 已识别 3 件单品');
+  $('#toMode').onclick=()=>go(2); $$('.back').forEach(b=>b.onclick=()=>go(Number(b.dataset.back)));
+  $$('.mode').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;$$('.mode').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');$('#quickFields').classList.toggle('hidden',mode!=='quick');$('#enhancedFields').classList.toggle('hidden',mode!=='enhanced');});
+  function renderPreview(){go(3);$('#previewImage').classList.add('hidden');$('#previewCopy').classList.add('hidden');$('.loading-ring').classList.remove('hidden');$('.loading-text').classList.remove('hidden');$('#search').disabled=true;setTimeout(()=>{$('#previewImage').src=currentImage||sampleUrl;$('#previewImage').classList.remove('hidden');$('#previewCopy').classList.remove('hidden');$('.loading-ring').classList.add('hidden');$('.loading-text').classList.add('hidden');$('#previewBadge').textContent=mode==='quick'?'快速预览 · 视觉示意':'增强预览 · 交互示意';$('#search').disabled=false;},1400)}
+  $('#generate').onclick=renderPreview;$('#regenerate').onclick=renderPreview;$$('.chip').forEach(c=>c.onclick=()=>c.classList.toggle('on'));$('#search').onclick=()=>go(4);$('#finish').onclick=()=>alert('这是界面原型：真实版本将在这里进入淘宝商品详情或整套加购。');
+</script>
+</body>
+</html>
